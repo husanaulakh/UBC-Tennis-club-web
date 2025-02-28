@@ -52,7 +52,7 @@ const upcomingEvents = [
     location: "UBC Tennis Centre",
     description: "Annual summer championship for all skill levels with prizes for winners.",
     image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
-    type: "match",
+    type: "match" as const,
     isOpen: true,
   },
   {
@@ -63,7 +63,7 @@ const upcomingEvents = [
     location: "UBC Tennis Courts",
     description: "Learn the basics of tennis with our experienced coaches. Equipment provided.",
     image: "https://images.unsplash.com/photo-1551773188-0801da12ddae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    type: "training",
+    type: "training" as const,
     isOpen: true,
   },
   {
@@ -74,7 +74,7 @@ const upcomingEvents = [
     location: "UBC Student Union Building",
     description: "Join us for a casual social gathering to celebrate the end of the term.",
     image: "https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80",
-    type: "social",
+    type: "social" as const,
     isOpen: true,
   },
 ];
