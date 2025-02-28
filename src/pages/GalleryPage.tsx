@@ -2,6 +2,7 @@
 import { PageHeader } from "@/components/ui/page-header";
 import { Section } from "@/components/ui/section";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { ImageGallery } from "@/components/gallery/ImageGallery";
 
 // Mock data for gallery images
