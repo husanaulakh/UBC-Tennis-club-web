@@ -44,16 +44,38 @@ export function HeroSlider({ slides, autoPlayInterval = 5000, className }: HeroS
     goToSlide(currentIndex + 1);
   };
 
-  // Handle image loading
+  // Preload all images
   useEffect(() => {
-    if (Object.keys(loadedImages).length === slides.length) {
-      setIsLoading(false);
-    }
-  }, [loadedImages, slides.length]);
+    // Create an array to hold all promises
+    const imagePromises = slides.map(slide => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = slide.image;
+        img.onload = () => {
+          setLoadedImages(prev => ({ ...prev, [slide.id]: true }));
+          resolve(true);
+        };
+        img.onerror = () => {
+          // Even if there's an error, we consider it "loaded"
+          setLoadedImages(prev => ({ ...prev, [slide.id]: true }));
+          resolve(false);
+        };
+      });
+    });
 
-  const handleImageLoad = (id: number) => {
-    setLoadedImages((prev) => ({ ...prev, [id]: true }));
-  };
+    // Hide loading indicator after a reasonable timeout even if images fail
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    // Wait for all images to load
+    Promise.all(imagePromises).then(() => {
+      clearTimeout(loadingTimeout);
+      setIsLoading(false);
+    });
+
+    return () => clearTimeout(loadingTimeout);
+  }, [slides]);
 
   // Autoplay functionality
   useEffect(() => {
@@ -90,11 +112,10 @@ export function HeroSlider({ slides, autoPlayInterval = 5000, className }: HeroS
                 src={slide.image}
                 alt={slide.title}
                 className="h-full w-full object-cover"
-                onLoad={() => handleImageLoad(slide.id)}
               />
               
               {/* Overlay */}
-              <div className="hero-overlay"></div>
+              <div className="absolute inset-0 bg-black/30"></div>
               
               {/* Content */}
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
